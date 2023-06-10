@@ -16,7 +16,9 @@ public class Wishlist {
     private List<Gift> gifts;
 
 
-    public Wishlist() {    }
+    public Wishlist() {
+        // constructor sin argumentos requerido para la serialización/deserialización
+    }
 
     public Wishlist(int id, String name, String description,  int id_user, Date created_at) {
         this.id = id;
@@ -25,6 +27,7 @@ public class Wishlist {
         this.name = name;
         this.description = description;
     }
+
 
     public int getId() {
         return id;
