@@ -15,11 +15,7 @@
         android:theme="@style/Theme.SocialGift"
         tools:targetApi="31">
         <activity
-<<<<<<<<< Temporary merge branch 1
-            android:name=".WishlistActivity"
-=========
             android:name=".view.ShowMyUserActivity"
->>>>>>>>> Temporary merge branch 2
             android:exported="false" />
         <activity
             android:name=".view.RegisterActivity"

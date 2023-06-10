@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.socialgift.R;
 import com.example.socialgift.controller.UsersController;
+import com.example.socialgift.view.myuser.ShowMyUserActivity;
 import com.google.firebase.FirebaseApp;
 
 public class LoginActivity extends AppCompatActivity {
@@ -122,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess() {
         // El login fue exitoso, hacer algo aquí
         Log.d(TAG, "Inicio de sesión exitoso");
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ShowMyUserActivity.class);
         startActivity(intent);
         Toast.makeText(this, "Login exitoso", Toast.LENGTH_SHORT).show();
     }
