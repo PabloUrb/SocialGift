@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginSuccess(String token) {
         // El login fue exitoso, hacer algo aquí
         Log.d(TAG, "Inicio de sesión exitoso");
-        Intent intent = new Intent(this, ShowMyUserActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         sessionManager.saveToken(emailEditText.getText().toString().trim(), passwordEditText.getText().toString().trim(),token);
         sessionManager.saveCredentials(emailEditText.getText().toString().trim(), passwordEditText.getText().toString().trim());
         startActivity(intent);

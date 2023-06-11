@@ -25,6 +25,7 @@ import com.example.socialgift.model.SessionManager;
 import com.example.socialgift.model.User;
 import com.example.socialgift.model.Wishlist;
 import com.example.socialgift.view.LoginActivity;
+import com.example.socialgift.view.RequestsActivity;
 import com.example.socialgift.view.myuser.MyFriendsActivity;
 import com.example.socialgift.view.myuser.MyGiftsActivity;
 import com.example.socialgift.view.myuser.MyWishlistsActivity;
@@ -36,7 +37,7 @@ public class ShowMyUserFragment extends Fragment {
     private ImageView userImageView;
     private TextView nameTextView, friendsCountTextView, reservedGiftsCountTextView, wishlistsCountTextView;
     private LinearLayout wishlistContainer;
-    private Button editButton, logoutButton, allWishlistsButton;
+    private Button editButton, logoutButton, allWishlistsButton, requestButton;
 
     private SessionManager sessionManager;
 
@@ -58,6 +59,8 @@ public class ShowMyUserFragment extends Fragment {
         allWishlistsButton = view.findViewById(R.id.view_all_button);
 
         wishlistContainer = view.findViewById(R.id.wishlist_container);
+
+        requestButton = view.findViewById(R.id.requests_button);
 
         sessionManager = SessionManager.getInstance(this.getContext());
 
@@ -89,7 +92,12 @@ public class ShowMyUserFragment extends Fragment {
             }
         });
 
-
+        requestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), RequestsActivity.class));
+            }
+        });
 
         reservedGiftsCountTextView.setOnClickListener(new View.OnClickListener() {
             @Override

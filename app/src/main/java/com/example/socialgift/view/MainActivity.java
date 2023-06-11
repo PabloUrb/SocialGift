@@ -2,33 +2,64 @@ package com.example.socialgift.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import com.example.socialgift.R;
+import com.example.socialgift.view.fragments.SearchFragment;
+import com.example.socialgift.view.myuser.ShowMyUserActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.socialgift.datamanager.DataManagerAPI;
 import com.example.socialgift.datamanager.DataManagerCallbacks;
-import com.example.socialgift.datamanager.MercadoExpressAPI;
 import com.example.socialgift.model.User;
-import com.example.socialgift.model.Wishlist;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button editUserButton;
+    BottomNavigationView bottomNavigationView;
+    public static User me;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigationbar);
+        bottomNavigationView.getMenu().clear();
+        bottomNavigationView.inflateMenu(R.menu.menu);
+
+
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.ic_home:
+                    startActivity(new Intent(this, MainActivity.class));
+                    break;
+                case R.id.ic_user:
+                    startActivity(new Intent(this, ShowMyUserActivity.class));
+                    break;
+                case R.id.ic_basket:
+                    break;
+                case R.id.ic_menu:
+                    break;
+            }
+            return false;
+        });
+
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragment_searchBar, SearchFragment.class, null)
+                    .commit();
+        }
         DataManagerAPI.getMyUser(this, new DataManagerCallbacks.DataManagerCallbackUser<User>() {
             @Override
             public void onSuccess(User user) {
                 // Manejar el usuario encontrado
                 // por ejemplo, mostrarlo en un formulario o realizar otras operaciones necesarias
                 System.out.println("MI ID ES: "+user.getId());
+                me = user;
             }
 
             @Override

@@ -120,14 +120,28 @@
         android:padding="8dp"
         android:text="@string/btn_logout"
         android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/requests_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_button"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/button_enabled"
+        android:drawablePadding="8dp"
+        android:padding="8dp"
+        android:text="Friend's Requests"
+        android:textColor="@color/white" />
+
     <TextView
         android:id="@+id/ending_soon_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logout_button"
+        android:layout_below="@id/requests_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Tus siguientes wishlist próximas por finalizar:"
+        android:layout_marginTop="31dp"
+        android:text="Tus siguientes wishlist por finalizar:"
         android:textSize="18sp" />
     <TextView
         android:layout_width="wrap_content"

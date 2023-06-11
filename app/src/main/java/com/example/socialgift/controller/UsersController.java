@@ -3,6 +3,8 @@ package com.example.socialgift.controller;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.socialgift.datamanager.DataManagerAPI;
 import com.example.socialgift.datamanager.DataManagerCallbacks;
@@ -10,6 +12,10 @@ import com.example.socialgift.datamanager.DataManagerSocial;
 import com.example.socialgift.model.Gift;
 import com.example.socialgift.model.User;
 import com.example.socialgift.model.Wishlist;
+import com.example.socialgift.view.fragments.SearchFragment;
+import com.example.socialgift.view.fragments.ShowReservedFragment;
+import com.example.socialgift.view.ShowUserProfile;
+import com.example.socialgift.view.fragments.ShowWishlistFragment;
 import com.example.socialgift.view.myuser.fragments.EditUserFragment;
 import com.example.socialgift.view.LoginActivity;
 import com.example.socialgift.view.RegisterActivity;
@@ -44,9 +50,12 @@ public class UsersController {
 
     private ShowMyUserFragment showMyUserFragment;
     private RegisterActivity registerActivity;
-
+    private ShowReservedFragment showReservedFragment;
     private EditUserFragment editUserFragment;
     private LoginActivity loginActivity;
+    private SearchFragment searchFragment;
+    private ShowUserProfile showUserProfile;
+    private ShowWishlistFragment showWishlistFragment;
     private Context context;
 
     private List<Wishlist> myWishlists = new ArrayList<>();
@@ -65,7 +74,24 @@ public class UsersController {
         this.registerActivity = registerActivity;
         this.context = context;
     }
-
+    /**
+     * Constructor de la clase UsersController cuando quiero registrarme
+     * @param showWishlistFragment Fragmento que implementa la interfaz ShowMyUserFragment
+     * @param context Contexto de la aplicación
+     */
+    public UsersController(ShowWishlistFragment showWishlistFragment, Context context) {
+        this.showWishlistFragment = showWishlistFragment;
+        this.context = context;
+    }
+    /**
+     * Constructor de la clase UsersController cuando quiero registrarme
+     * @param showReservedFragment Fragmento que implementa la interfaz ShowMyUserFragment
+     * @param context Contexto de la aplicación
+     */
+    public UsersController(ShowReservedFragment showReservedFragment, Context context) {
+        this.showReservedFragment = showReservedFragment;
+        this.context = context;
+    }
     /**
      * Constructor de la clase UsersController cuando quiero loggearme
      * @param loginActivity Fragmento que implementa la interfaz ShowMyUserFragment
@@ -73,6 +99,26 @@ public class UsersController {
      */
     public UsersController(LoginActivity loginActivity, Context context) {
         this.loginActivity = loginActivity;
+        this.context = context;
+    }
+
+    /**
+     * Constructor de la clase UsersController cuando quiero loggearme
+     * @param searchFragment Fragmento que implementa la interfaz ShowMyUserFragment
+     * @param context Contexto de la aplicación
+     */
+    public UsersController(SearchFragment searchFragment, Context context) {
+        this.searchFragment = searchFragment;
+        this.context = context;
+    }
+
+    /**
+     * Constructor de la clase UsersController cuando quiero loggearme
+     * @param showUserProfile Fragmento que implementa la interfaz ShowMyUserFragment
+     * @param context Contexto de la aplicación
+     */
+    public UsersController(ShowUserProfile showUserProfile, Context context) {
+        this.showUserProfile = showUserProfile;
         this.context = context;
     }
 
@@ -277,6 +323,63 @@ public class UsersController {
         });
     }
 
+    public void getWishlistsCount(int id,DataManagerCallback<Integer> callback) {
+        DataManagerAPI.wishlistsUser(id,context, new DataManagerCallbacks.DataManagerCallbackWishlists<Wishlist>() {
+            @Override
+            public void onSuccess(List<Wishlist> wishlists) {
+                int count = wishlists.size();
+                callback.onSuccess(count);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+    public void getWishlistsCountOther(int id,DataManagerCallback<Integer> callback) {
+        DataManagerAPI.wishlistsUser(id,context, new DataManagerCallbacks.DataManagerCallbackWishlists<Wishlist>() {
+            @Override
+            public void onSuccess(List<Wishlist> wishlists) {
+                int count = wishlists.size();
+                callback.onSuccess(count);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+    public void getReservedGiftsCountOther(int id,DataManagerCallback<Integer> callback) {
+        DataManagerAPI.getGiftsReserved(id, context, new DataManagerCallbacks.DataManagerCallbackListGift<Gift>() {
+            @Override
+            public void onSuccess(List<Gift> gifts) {
+                int count = gifts.size();
+                callback.onSuccess(count);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+    public void getFriendsCountOther(int id, DataManagerCallback<Integer> callback) {
+        DataManagerSocial.getUserFriends(id, context, new DataManagerCallbacks.DataManagerCallbackUserList<User>() {
+            @Override
+            public void onSuccess(List<User> users) {
+                int count = users.size();
+                callback.onSuccess(count);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
     public void getClosestWishlists(DataManagerCallback<List<Wishlist>> callback) {
 
         // Obtener la fecha actual
@@ -421,5 +524,79 @@ public class UsersController {
 
         return tempFile;
     }
+    public void searchUser(String searchTerm) {
+        DataManagerAPI.searchUser(searchTerm, context, new DataManagerCallbacks.DataManagerCallbackUserList<User>(){
 
+            @Override
+            public void onSuccess(List<User> list) {
+                Log.d("API_SUCCESS_SEARCH_USER", "Mi LISTA DE USUARIOS ES:  " + list);
+                System.out.println("lista :: "+list);
+                if(list!=null){
+                    for (User u: list ) {
+                        SearchFragment.arrayList.add(u.getEmail());
+                        SearchFragment.lstUsers.add(u);
+                    }
+                    SearchFragment.listView.setVisibility(View.VISIBLE);
+                    SearchFragment.adapter.getFilter().filter(searchTerm);
+                    System.out.println(SearchFragment.arrayList);
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("API_ERROR_SEARCH_USER", errorMessage);
+
+            }
+        });
+    }
+    public void wishlistsUser(int id) {
+        DataManagerAPI.wishlistsUser(id, context, new DataManagerCallbacks.DataManagerCallbackWishlists<>() {
+            @Override
+            public void onSuccess(List<Wishlist> wishlists) {
+                Log.d("API_SUCCESS_SEARCH_USER", "Mi LISTA DE WISHLIST ES:  " + wishlists);
+                if(wishlists!=null){
+                    ShowWishlistFragment.arrayList.clear();
+                    for (Wishlist w: wishlists ) {
+                        System.out.println("w :: "+w.getName());
+                        ShowWishlistFragment.lstWishlist.add(w);
+                        ShowWishlistFragment.arrayList.add(w.getName());
+                    }
+                    ShowWishlistFragment.listView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("API_ERROR_SEARCH_USER", errorMessage);
+            }
+        });
+    }
+    public void getGiftsReserved(int id){
+        DataManagerAPI.getGiftsReserved(id, context, new DataManagerCallbacks.DataManagerCallbackListGift<>() {
+
+            @Override
+            public void onSuccess(List<Gift> gift) {
+                System.out.println("MI ID QUE LE ESTOY PASANDO AL RESERVADO ES :: "+id);
+                Log.d("API_SUCCESS_SEARCH_USER", "Mi LISTA DE WISHLIST ES:  " + gift);
+                System.out.println("lista reseved gifts:: "+gift);
+                if(gift!=null){
+                    for (Gift w: gift ) {
+                        //ShowReservedFragment.lstGift.add(w);
+                        String[] result = w.getProductUrl().split("/");
+                        //ShowReservedFragment.arrayList.add(result[result.length-1]);
+                        ShowReservedFragment.mercadoExpressController.getAProduct(Integer.parseInt(result[result.length-1]),1);
+                    }
+                    ShowReservedFragment.listView.setVisibility(View.VISIBLE);;
+                    //ShowGiftFragment.productsId = ShowReservedFragment.lstGift;
+                }else{
+                    Toast.makeText(context, "No tiene regalos reservados",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("API_ERROR_SEARCH_USER", errorMessage);
+            }
+        });
+    }
 }
