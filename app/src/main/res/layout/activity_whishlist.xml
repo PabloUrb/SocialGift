@@ -22,21 +22,26 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/createWishlistButton"
             android:layout_width="46dp"
             android:layout_height="46dp"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_add"
             android:layout_marginLeft="240dp"/>
 
     </LinearLayout>
 
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWishlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="80dp"
-        />
+        android:layout_marginTop="79dp"
+        android:layout_marginBottom="79dp"
+        tools:layout_editor_absoluteX="355dp"
+        tools:layout_editor_absoluteY="675dp"
+        android:layout_above="@+id/header" />
 
 
     <LinearLayout
