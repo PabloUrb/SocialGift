@@ -21,12 +21,5 @@
         android:title="@string/ic_basket"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:color="@color/white"
-        android:id="@+id/ic_menu"
-        android:enabled="true"
-        android:icon="@drawable/ic_menu"
-        android:title="@string/ic_menu"
-        app:showAsAction="ifRoom" />
 
 </menu>

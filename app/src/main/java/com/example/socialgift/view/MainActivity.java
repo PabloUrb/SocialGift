@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(this, ShowMyUserActivity.class));
                     break;
                 case R.id.ic_basket:
-                    break;
-                case R.id.ic_menu:
+                    startActivity(new Intent(this, WishlistActivity.class));
                     break;
             }
             return false;

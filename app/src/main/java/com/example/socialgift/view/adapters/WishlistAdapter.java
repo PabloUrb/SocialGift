@@ -1,28 +1,38 @@
-package com.example.socialgift.view.myuser.adapters;
+package com.example.socialgift.view.adapters;
+
+import static androidx.core.content.ContextCompat.startActivity;
+import static androidx.recyclerview.widget.RecyclerView.*;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
-import com.example.socialgift.controller.MyWishlistController;
 import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.model.Wishlist;
+import com.example.socialgift.view.EditWishlistActivity;
+import com.example.socialgift.view.NewWishlistActivity;
+import com.example.socialgift.view.ShowGiftActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.WishlistViewHolder> {
-    private MyWishlistController wishlistController;
+public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.WishlistViewHolder> {
+    private WishlistController wishlistController;
     private List<Wishlist> wishlists;
     private OnItemClickListener itemClickListener;
+    public static Wishlist wishlistC;
 
-    public MyWishlistAdapter(MyWishlistController wishlistController) {
+    public WishlistAdapter(WishlistController wishlistController) {
         this.wishlistController = wishlistController;
         this.wishlists = new ArrayList<>();
     }
@@ -34,8 +44,8 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
     @NonNull
     @Override
     public WishlistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mywishlist, parent, false);
-        return new WishlistViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wishlist, parent, false);
+        return new WishlistAdapter.WishlistViewHolder(view);
     }
 
     @Override
@@ -44,7 +54,6 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
         holder.bind(wishlist);
     }
 
-    @Override
     public int getItemCount() {
         return wishlists.size();
     }
@@ -57,47 +66,56 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
         void onItemClick(Wishlist wishlist);
     }
 
-    public class WishlistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class WishlistViewHolder extends ViewHolder implements View.OnClickListener {
         private TextView titleTextView;
         private TextView descriptionTextView;
-        private TextView totalGiftsTextView;
         private TextView endDateTextView;
+        private ImageButton editWishlist;
 
         public WishlistViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.wishlist_title);
-            descriptionTextView = itemView.findViewById(R.id.wishlist_description);
-            totalGiftsTextView = itemView.findViewById(R.id.wishlist_totalgifts);
-            endDateTextView = itemView.findViewById(R.id.wishlist_enddate);
+            titleTextView = itemView.findViewById(R.id.Nombre);
+            descriptionTextView = itemView.findViewById(R.id.Descripcion);
+            endDateTextView = itemView.findViewById(R.id.tvFecha);
+            editWishlist = itemView.findViewById(R.id.editWishlist);
             itemView.setOnClickListener(this);
         }
 
-        @SuppressLint("SetTextI18n")
+        //@SuppressLint("SetTextI18n")
         public void bind(Wishlist wishlist) {
-
+            System.out.println("getId :: "+wishlist.getId());
+            System.out.println("getName :: "+wishlist.getName());
+            System.out.println("getEndDate :: "+wishlist.getEndDate());
+            System.out.println("getDescription :: "+wishlist.getDescription());
             titleTextView.setText(wishlist.getName());
             descriptionTextView.setText("Descripción: "+wishlist.getDescription());
-
-            if (wishlist.getGifts() != null){
-                totalGiftsTextView.setText("Total de regalos: "+wishlist.getGifts().size());
-            } else {
-                totalGiftsTextView.setText("Total de regalos: 0");
-            }
 
             if (wishlist.getEndDate() != null) {
                 endDateTextView.setText(wishlist.getEndDate().toString());
             } else {
                 endDateTextView.setText("");
             }
+            editWishlist.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    wishlistC = wishlist;
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, EditWishlistActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
         }
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION) {
+            if (position != NO_POSITION) {
                 Wishlist wishlist = wishlists.get(position);
                 if (itemClickListener != null) {
                     itemClickListener.onItemClick(wishlist);
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, ShowGiftActivity.class);
+                    context.startActivity(intent);
                 }
             }
         }

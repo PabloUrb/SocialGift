@@ -1,13 +1,14 @@
 package com.example.socialgift.model;
 
-public class UserSession extends User{
+import java.util.UUID;
 
+public class UserSession extends User{
     private String token;
 
     public UserSession() {
 
     }
-      public UserSession(int id, String name, String last_name, String password, String image, String email) {
+    public UserSession(int id, String name, String last_name, String password, String image, String email) {
         super(id, name, last_name, password,image, email);
     }
 

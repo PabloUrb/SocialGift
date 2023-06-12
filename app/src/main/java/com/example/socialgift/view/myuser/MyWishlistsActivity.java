@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.socialgift.R;
 import com.example.socialgift.controller.MyWishlistController;
+import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.model.Wishlist;
 import com.example.socialgift.view.myuser.adapters.MyWishlistAdapter;
 
