@@ -22,6 +22,7 @@ import com.example.socialgift.model.Wishlist;
 import com.example.socialgift.view.EditWishlistActivity;
 import com.example.socialgift.view.NewWishlistActivity;
 import com.example.socialgift.view.ShowGiftActivity;
+import com.example.socialgift.view.fragments.ShowGiftFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,10 +113,15 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
             if (position != NO_POSITION) {
                 Wishlist wishlist = wishlists.get(position);
                 if (itemClickListener != null) {
-                    itemClickListener.onItemClick(wishlist);
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, ShowGiftActivity.class);
-                    context.startActivity(intent);
+                    System.out.println("position :: "+position);
+                    System.out.println("wishlist.getGifts() :: "+wishlist.getGifts());
+                    if(wishlist.getGifts()!=null){
+                        itemClickListener.onItemClick(wishlist);
+                        Context context = v.getContext();
+                        ShowGiftFragment.lstGifts = wishlist.getGifts();
+                        Intent intent = new Intent(context, ShowGiftActivity.class);
+                        context.startActivity(intent);
+                    }
                 }
             }
         }
