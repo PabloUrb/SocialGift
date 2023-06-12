@@ -32,7 +32,7 @@ public class MercadoExpressController {
     }
 
     public void getAProduct(int productId, int flag){
-        MercadoExpressAPI.getAProduct(productId, context, new DataManagerCallbacks.DataManagerCallbackProduct<>(){
+        MercadoExpressAPI.getAProduct(productId, context, new DataManagerCallbacks.DataManagerCallbackProduct<Product>(){
             @Override
             public void onSuccess(Product product) {
                 if(product!=null){

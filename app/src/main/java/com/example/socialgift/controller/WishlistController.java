@@ -49,4 +49,32 @@ public class WishlistController {
             }
         });
     }
+
+    public void editWishlist(Wishlist wishlist) {
+        DataManagerAPI.editWishlist(wishlist, context, new DataManagerCallbacks.DataManagerCallback() {
+            @Override
+            public void onSuccess() {
+                Log.d("No hay wishlists", "Wishlist editada");
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("No hay wishlists", errorMessage);
+            }
+        });
+    }
+    
+    /*public void deleteWishlist(Wishlist wishlist) {
+        DataManagerAPI.deleteWishlist(wishlist, context, new DataManagerCallbacks.DataManagerCallback() {
+            @Override
+            public void onSuccess() {
+                Log.d("No hay wishlists", "Wishlist borrada");
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("No hay wishlists", errorMessage);
+            }
+        });
+    }*/
 }

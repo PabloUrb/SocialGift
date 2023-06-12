@@ -19,14 +19,14 @@ import java.util.List;
 public class MyWishlistsActivity extends AppCompatActivity implements MyWishlistAdapter.OnItemClickListener {
     private RecyclerView recyclerView;
     private MyWishlistAdapter wishlistAdapter;
-    private WishlistController wishlistController;
+    private MyWishlistController wishlistController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wishlists);
 
-        wishlistController = new WishlistController(this, this);
+        wishlistController = new MyWishlistController(this, this);
 
         recyclerView = findViewById(R.id.wishlists_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,7 +38,7 @@ public class MyWishlistsActivity extends AppCompatActivity implements MyWishlist
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        wishlistController.cargarWishlist();
+        wishlistController.loadWishlists();
     }
 
     public void showWishlists(List<Wishlist> wishlists) {

@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.WishlistViewHolder> {
-    private WishlistController wishlistController;
+    private MyWishlistController wishlistController;
     private List<Wishlist> wishlists;
     private OnItemClickListener itemClickListener;
 
-    public MyWishlistAdapter(WishlistController wishlistController) {
+    public MyWishlistAdapter(MyWishlistController wishlistController) {
         this.wishlistController = wishlistController;
         this.wishlists = new ArrayList<>();
     }
@@ -30,14 +30,14 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }
-/*
+
     @NonNull
     @Override
     public WishlistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mywishlist, parent, false);
         return new WishlistViewHolder(view);
     }
-*/
+
     @Override
     public void onBindViewHolder(@NonNull WishlistViewHolder holder, int position) {
         Wishlist wishlist = wishlists.get(position);

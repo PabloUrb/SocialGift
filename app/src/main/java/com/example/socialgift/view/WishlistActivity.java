@@ -16,6 +16,7 @@ import com.example.socialgift.controller.WishlistAdapter;
 import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.datamanager.DataManagerCallbacks;
 import com.example.socialgift.model.Wishlist;
+import com.example.socialgift.view.myuser.ShowMyUserActivity;
 
 import java.util.List;
 
@@ -26,12 +27,17 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
     private WishlistAdapter wishlistAdapter;
     private WishlistController wishlistController;
     private Button createNewWishlits;
+    private com.google.android.material.bottomnavigation.BottomNavigationView bottomNavigationView;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_whishlist);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigationbar);
+        bottomNavigationView.getMenu().clear();
+        bottomNavigationView.inflateMenu(R.menu.menu);
 
         createNewWishlits= findViewById(R.id.createWishlistButton);
 
@@ -52,6 +58,22 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
         createNewWishlits.setOnClickListener(view -> {
             onCreateClick(wishlist, createNewWishlits);
         });
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.ic_home:
+                    startActivity(new Intent(this, MainActivity.class));
+                    break;
+                case R.id.ic_user:
+                    startActivity(new Intent(this, ShowMyUserActivity.class));
+                    break;
+                case R.id.ic_basket:
+                    break;
+                case R.id.ic_menu:
+                    break;
+            }
+            return false;
+        });
     }
 
     public void showWishlists(List<Wishlist> wishlists) {
@@ -67,31 +89,5 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
         Intent intent = new Intent(this, NewWishlistActivity.class);
         startActivity(intent);
     }
-
-    /*Button createWishlistButton;
-    MyWishlistController myWishlistController;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_whishlist);
-        createWishlistButton = findViewById(R.id.);
-
-        createWishlistButton.setOnClickListener(v -> {
-
-            });
-        DataManagerAPI.wishlistsUser(DataManagerAPI.getObjectUser().getId(), this, new DataManagerCallbackWishlists<Wishlist>() {
-            @Override
-            public void onSuccess(List<Wishlist> wishlists) {
-                Log.d("MyWishlistController", "Wishlists: " + wishlists);
-                myWishlistController.loadWishlists();
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-                Log.e("MyWishlistController", errorMessage);
-            }
-        });
-    }*/
 
 }
