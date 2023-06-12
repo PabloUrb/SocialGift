@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvDescripcion"
+            android:id="@+id/Nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre"
@@ -25,7 +25,7 @@
             android:text="Fecha" />
 
         <TextView
-            android:id="@+id/tvPrioridad"
+            android:id="@+id/Descripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Prioridad" />

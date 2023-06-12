@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
-import com.example.socialgift.controller.WishlistAdapter;
+import com.example.socialgift.view.adapters.WishlistAdapter;
 import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.datamanager.DataManagerCallbacks;
 import com.example.socialgift.model.Wishlist;
@@ -38,6 +38,7 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
         bottomNavigationView = findViewById(R.id.bottom_navigationbar);
         bottomNavigationView.getMenu().clear();
         bottomNavigationView.inflateMenu(R.menu.menu);
+        bottomNavigationView.setSelectedItemId(R.id.ic_basket);
 
         createNewWishlits= findViewById(R.id.createWishlistButton);
 

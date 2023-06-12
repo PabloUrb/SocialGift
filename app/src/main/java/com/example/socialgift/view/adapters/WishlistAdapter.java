@@ -1,4 +1,4 @@
-package com.example.socialgift.controller;
+package com.example.socialgift.view.adapters;
 
 import static androidx.recyclerview.widget.RecyclerView.*;
 
@@ -9,14 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
+import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.model.Wishlist;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WishlistAdapter extends Adapter<WishlistAdapter.WishlistViewHolder> {
+public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.WishlistViewHolder> {
     private WishlistController wishlistController;
     private List<Wishlist> wishlists;
     private OnItemClickListener itemClickListener;
@@ -62,15 +64,18 @@ public class WishlistAdapter extends Adapter<WishlistAdapter.WishlistViewHolder>
 
         public WishlistViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTextView = itemView.findViewById(R.id.wishlist_title);
-            descriptionTextView = itemView.findViewById(R.id.wishlist_description);
-            endDateTextView = itemView.findViewById(R.id.wishlist_enddate);
+            titleTextView = itemView.findViewById(R.id.Nombre);
+            descriptionTextView = itemView.findViewById(R.id.Descripcion);
+            endDateTextView = itemView.findViewById(R.id.tvFecha);
             itemView.setOnClickListener(this);
         }
 
-        @SuppressLint("SetTextI18n")
+        //@SuppressLint("SetTextI18n")
         public void bind(Wishlist wishlist) {
-
+            System.out.println("getId :: "+wishlist.getId());
+            System.out.println("getName :: "+wishlist.getName());
+            System.out.println("getEndDate :: "+wishlist.getEndDate());
+            System.out.println("getDescription :: "+wishlist.getDescription());
             titleTextView.setText(wishlist.getName());
             descriptionTextView.setText("Descripción: "+wishlist.getDescription());
 
