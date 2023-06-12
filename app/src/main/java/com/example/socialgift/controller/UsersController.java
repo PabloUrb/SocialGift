@@ -550,7 +550,7 @@ public class UsersController {
         });
     }
     public void wishlistsUser(int id) {
-        DataManagerAPI.wishlistsUser(id, context, new DataManagerCallbacks.DataManagerCallbackWishlists<Wishlist>() {
+        DataManagerAPI.wishlistsUser(id, context, new DataManagerCallbacks.DataManagerCallbackWishlists<>() {
             @Override
             public void onSuccess(List<Wishlist> wishlists) {
                 Log.d("API_SUCCESS_SEARCH_USER", "Mi LISTA DE WISHLIST ES:  " + wishlists);
@@ -572,7 +572,7 @@ public class UsersController {
         });
     }
     public void getGiftsReserved(int id){
-        DataManagerAPI.getGiftsReserved(id, context, new DataManagerCallbacks.DataManagerCallbackListGift<Gift>() {
+        DataManagerAPI.getGiftsReserved(id, context, new DataManagerCallbacks.DataManagerCallbackListGift<>() {
 
             @Override
             public void onSuccess(List<Gift> gift) {
