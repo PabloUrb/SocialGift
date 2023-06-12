@@ -113,8 +113,6 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
             if (position != NO_POSITION) {
                 Wishlist wishlist = wishlists.get(position);
                 if (itemClickListener != null) {
-                    System.out.println("position :: "+position);
-                    System.out.println("wishlist.getGifts() :: "+wishlist.getGifts());
                     if(wishlist.getGifts()!=null){
                         itemClickListener.onItemClick(wishlist);
                         Context context = v.getContext();
