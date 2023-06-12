@@ -1,11 +1,16 @@
 package com.example.socialgift.view.adapters;
 
+import static androidx.core.content.ContextCompat.startActivity;
 import static androidx.recyclerview.widget.RecyclerView.*;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.socialgift.R;
 import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.model.Wishlist;
+import com.example.socialgift.view.EditWishlistActivity;
+import com.example.socialgift.view.NewWishlistActivity;
+import com.example.socialgift.view.ShowGiftActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +30,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
     private WishlistController wishlistController;
     private List<Wishlist> wishlists;
     private OnItemClickListener itemClickListener;
+    public static Wishlist wishlistC;
 
     public WishlistAdapter(WishlistController wishlistController) {
         this.wishlistController = wishlistController;
@@ -61,12 +70,14 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
         private TextView titleTextView;
         private TextView descriptionTextView;
         private TextView endDateTextView;
+        private ImageButton editWishlist;
 
         public WishlistViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.Nombre);
             descriptionTextView = itemView.findViewById(R.id.Descripcion);
             endDateTextView = itemView.findViewById(R.id.tvFecha);
+            editWishlist = itemView.findViewById(R.id.editWishlist);
             itemView.setOnClickListener(this);
         }
 
@@ -84,6 +95,15 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
             } else {
                 endDateTextView.setText("");
             }
+            editWishlist.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    wishlistC = wishlist;
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, EditWishlistActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+
         }
 
         @Override
@@ -93,6 +113,9 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
                 Wishlist wishlist = wishlists.get(position);
                 if (itemClickListener != null) {
                     itemClickListener.onItemClick(wishlist);
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, ShowGiftActivity.class);
+                    context.startActivity(intent);
                 }
             }
         }

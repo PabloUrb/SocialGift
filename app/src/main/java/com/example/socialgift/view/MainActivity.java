@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.ic_basket:
                     startActivity(new Intent(this, WishlistActivity.class));
                     break;
-                case R.id.ic_menu:
-                    break;
             }
             return false;
         });

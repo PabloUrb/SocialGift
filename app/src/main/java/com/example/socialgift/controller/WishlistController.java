@@ -1,14 +1,17 @@
 package com.example.socialgift.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.socialgift.datamanager.DataManagerAPI;
 import com.example.socialgift.datamanager.DataManagerCallbacks;
 import com.example.socialgift.model.Wishlist;
+import com.example.socialgift.view.EditWishlistActivity;
 import com.example.socialgift.view.NewWishlistActivity;
 import com.example.socialgift.view.WishlistActivity;
+import com.google.android.play.core.integrity.v;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.List;
 public class WishlistController {
     private WishlistActivity activity;
     private NewWishlistActivity newWishlistActivity;
+    private EditWishlistActivity editWishlistActivity;
     private Context context;
     private int currentPage = 0;
     private List<Wishlist> loadedWishlist = new ArrayList<>();
@@ -24,11 +28,14 @@ public class WishlistController {
         this.activity = activity;
         this.context = context;
     }
-    public WishlistController (NewWishlistActivity newWishlistActivity, Context context){
+    public WishlistController (NewWishlistActivity newWishlistActivity, Context context) {
         this.newWishlistActivity = newWishlistActivity;
         this.context = context;
     }
-
+    public WishlistController (EditWishlistActivity editWishlistActivity, Context context){
+        this.editWishlistActivity = editWishlistActivity;
+        this.context = context;
+    }
     public void cargarWishlist() {
         DataManagerAPI.wishlistsMyUser(context, new DataManagerCallbacks.DataManagerCallbackWishlists<Wishlist>() {
             @Override
@@ -64,6 +71,9 @@ public class WishlistController {
             @Override
             public void onSuccess() {
                 Log.d("No hay wishlists", "Wishlist editada");
+                Toast.makeText(context, "Tu wishlist ha sido modificada",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, WishlistActivity.class);
+                context.startActivity(intent);
             }
 
             @Override

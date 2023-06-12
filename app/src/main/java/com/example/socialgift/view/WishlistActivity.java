@@ -70,8 +70,6 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
                     break;
                 case R.id.ic_basket:
                     break;
-                case R.id.ic_menu:
-                    break;
             }
             return false;
         });

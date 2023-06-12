@@ -35,8 +35,6 @@ public class ShowMyUserActivity extends AppCompatActivity {
                     break;
                 case R.id.ic_basket:
                     break;
-                case R.id.ic_menu:
-                    break;
             }
             return false;
         });
