@@ -37,6 +37,9 @@
             android:name=".view.ShowUserProfile"
             android:exported="false" />
         <activity
+            android:name=".view.myuser.MyFriendsActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.RequestsActivity"
             android:exported="false" />
         <activity
