@@ -12,20 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
-import com.example.socialgift.controller.MyWishlistController;
+import com.example.socialgift.controller.WishlistAdapter;
 import com.example.socialgift.controller.WishlistController;
-import com.example.socialgift.datamanager.DataManagerAPI;
 import com.example.socialgift.datamanager.DataManagerCallbacks;
 import com.example.socialgift.model.Wishlist;
-import com.example.socialgift.view.myuser.MyWishlistAdapter;
 
 import java.util.List;
 
 
 public class WishlistActivity extends AppCompatActivity implements DataManagerCallbacks {
-
+    private Wishlist wishlist;
     private RecyclerView recyclerView;
-    private MyWishlistAdapter wishlistAdapter;
+    private WishlistAdapter wishlistAdapter;
     private WishlistController wishlistController;
     private Button createNewWishlits;
 
@@ -42,7 +40,7 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
         recyclerView = findViewById(R.id.recyclerViewWishlist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        wishlistAdapter = new MyWishlistAdapter(wishlistController);
+        wishlistAdapter = new WishlistAdapter(wishlistController);
         wishlistAdapter.setOnItemClickListener(this::onItemClick);
         recyclerView.setAdapter(wishlistAdapter);
 
@@ -52,7 +50,7 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
         wishlistController.cargarWishlist();
 
         createNewWishlits.setOnClickListener(view -> {
-            DataManagerAPI.createWishlist();
+            onCreateClick(wishlist, createNewWishlits);
         });
     }
 
@@ -63,10 +61,6 @@ public class WishlistActivity extends AppCompatActivity implements DataManagerCa
 
     public void onItemClick(Wishlist wishlist) {
         Log.d("WishlistActivity", "ID (wishlist): " + wishlist.getId());
-       /* // Abrir la nueva actividad con el ID de la wishlist
-        Intent intent = new Intent(this, WishlistDetailsActivity.class);
-        intent.putExtra("wishlist_id", wishlist.getId());
-        startActivity(intent);*/
     }
 
     public void onCreateClick(Wishlist wishlist, Button createNewWishlits) {

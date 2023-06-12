@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.socialgift.R;
 import com.example.socialgift.controller.MyWishlistController;
+import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.model.Wishlist;
 
 import java.util.ArrayList;
@@ -19,14 +20,14 @@ import java.util.List;
 public class MyWishlistsActivity extends AppCompatActivity implements MyWishlistAdapter.OnItemClickListener {
     private RecyclerView recyclerView;
     private MyWishlistAdapter wishlistAdapter;
-    private MyWishlistController wishlistController;
+    private WishlistController wishlistController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wishlists);
 
-        wishlistController = new MyWishlistController(this, this);
+        wishlistController = new WishlistController(this, this);
 
         recyclerView = findViewById(R.id.wishlists_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -38,7 +39,7 @@ public class MyWishlistsActivity extends AppCompatActivity implements MyWishlist
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        wishlistController.loadWishlists();
+        wishlistController.cargarWishlist();
     }
 
     public void showWishlists(List<Wishlist> wishlists) {

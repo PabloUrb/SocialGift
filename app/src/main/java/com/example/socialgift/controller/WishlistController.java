@@ -36,4 +36,17 @@ public class WishlistController {
         });
     }
 
+    public void NewWishlist(Wishlist wishlist) {
+        DataManagerAPI.createWishlist(wishlist, context, new DataManagerCallbacks.DataManagerCallback() {
+            @Override
+            public void onSuccess() {
+                Log.d("No hay wishlists", "Wishlist creada");
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("No hay wishlists", errorMessage);
+            }
+        });
+    }
 }
