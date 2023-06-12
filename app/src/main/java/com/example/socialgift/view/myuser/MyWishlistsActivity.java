@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -13,8 +12,8 @@ import com.example.socialgift.R;
 import com.example.socialgift.controller.MyWishlistController;
 import com.example.socialgift.controller.WishlistController;
 import com.example.socialgift.model.Wishlist;
+import com.example.socialgift.view.myuser.adapters.MyWishlistAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyWishlistsActivity extends AppCompatActivity implements MyWishlistAdapter.OnItemClickListener {

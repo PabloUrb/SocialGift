@@ -1,21 +1,45 @@
 package com.example.socialgift.view.myuser;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.socialgift.R;
+import com.example.socialgift.view.MainActivity;
 import com.example.socialgift.view.myuser.fragments.ShowMyUserFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class ShowMyUserActivity extends AppCompatActivity {
-
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_my_user);
 
+        bottomNavigationView = findViewById(R.id.navigationbar);
+        bottomNavigationView.getMenu().clear();
+        bottomNavigationView.inflateMenu(R.menu.menu);
+        bottomNavigationView.setSelectedItemId(R.id.ic_user);
+
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.ic_home:
+                    startActivity(new Intent(this, MainActivity.class));
+                    break;
+                case R.id.ic_user:
+                    startActivity(new Intent(this, ShowMyUserActivity.class));
+                    break;
+                case R.id.ic_basket:
+                    break;
+                case R.id.ic_menu:
+                    break;
+            }
+            return false;
+        });
 
 
  /*       */

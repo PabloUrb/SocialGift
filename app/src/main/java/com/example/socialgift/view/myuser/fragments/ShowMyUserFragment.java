@@ -21,9 +21,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.example.socialgift.R;
 import com.example.socialgift.controller.UsersController;
+import com.example.socialgift.model.SessionManager;
 import com.example.socialgift.model.User;
 import com.example.socialgift.model.Wishlist;
 import com.example.socialgift.view.LoginActivity;
+import com.example.socialgift.view.RequestsActivity;
 import com.example.socialgift.view.myuser.MyFriendsActivity;
 import com.example.socialgift.view.myuser.MyGiftsActivity;
 import com.example.socialgift.view.myuser.MyWishlistsActivity;
@@ -35,7 +37,9 @@ public class ShowMyUserFragment extends Fragment {
     private ImageView userImageView;
     private TextView nameTextView, friendsCountTextView, reservedGiftsCountTextView, wishlistsCountTextView;
     private LinearLayout wishlistContainer;
-    private Button editButton, logoutButton, allWishlistsButton;
+    private Button editButton, logoutButton, allWishlistsButton, requestButton;
+
+    private SessionManager sessionManager;
 
     //private MyUserController userController;
      private UsersController userController;
@@ -56,6 +60,9 @@ public class ShowMyUserFragment extends Fragment {
 
         wishlistContainer = view.findViewById(R.id.wishlist_container);
 
+        requestButton = view.findViewById(R.id.requests_button);
+
+        sessionManager = SessionManager.getInstance(this.getContext());
 
         // Crear el controlador
         //userController = new MyUserController(this);
@@ -85,7 +92,12 @@ public class ShowMyUserFragment extends Fragment {
             }
         });
 
-
+        requestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), RequestsActivity.class));
+            }
+        });
 
         reservedGiftsCountTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +125,7 @@ public class ShowMyUserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Cerrar sesión del usuario y navegar a la pantalla de inicio de sesión
+                sessionManager.logout();
                 userController.signOut(ShowMyUserFragment.this);
             }
         });
