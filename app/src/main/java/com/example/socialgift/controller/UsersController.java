@@ -584,7 +584,18 @@ public class UsersController {
                         //ShowReservedFragment.lstGift.add(w);
                         String[] result = w.getProductUrl().split("/");
                         //ShowReservedFragment.arrayList.add(result[result.length-1]);
-                        ShowReservedFragment.mercadoExpressController.getAProduct(Integer.parseInt(result[result.length-1]),1);
+                        System.out.println("w.getProductUrl() :: "+w.getProductUrl());
+                        System.out.println("result[result.length-1]  :: "+result[result.length-1]);
+                        try{
+                            Integer idGift = Integer.valueOf(result[result.length-1]);
+                            if(idGift!=null){
+                                ShowReservedFragment.mercadoExpressController.getAProduct(idGift,1);
+                            }
+
+                        }catch (Exception e){
+                            Toast.makeText(context, "No tiene regalos reservados",Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                     ShowReservedFragment.listView.setVisibility(View.VISIBLE);;
                     //ShowGiftFragment.productsId = ShowReservedFragment.lstGift;
