@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.socialgift.R;
 import com.example.socialgift.view.MainActivity;
+import com.example.socialgift.view.WishlistActivity;
 import com.example.socialgift.view.myuser.fragments.ShowMyUserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,6 +35,7 @@ public class ShowMyUserActivity extends AppCompatActivity {
                     startActivity(new Intent(this, ShowMyUserActivity.class));
                     break;
                 case R.id.ic_basket:
+                    startActivity(new Intent(this, WishlistActivity.class));
                     break;
             }
             return false;
